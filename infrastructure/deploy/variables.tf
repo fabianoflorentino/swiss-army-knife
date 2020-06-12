@@ -1,6 +1,6 @@
 variable "provider_address" {
 
-  default = "192.168.7.3"
+  default = "$TF_VAR_provider_address"
 
 }
 
