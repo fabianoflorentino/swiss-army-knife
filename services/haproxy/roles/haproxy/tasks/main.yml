@@ -1,0 +1,47 @@
+---
+- name: "Install Packages"
+  yum:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - haproxy
+    - keepalived
+
+- name: "Configure New APP in HAProxy"
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+    # backup: yes
+  with_dict: "{{ new_app }}"
+  notify: "Apply new configuration for HAProxy"
+
+- name: "Set up high availability with Keepalived"
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: "Apply new configuration for Keepalived"
+
+- name: "Inicialize systemd services"
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - haproxy
+    - keepalived
+
+- name: Ajustando Hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Atualizando o arquivo /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ hostvars[item]['ansible_host'] }}  {{ hostvars[item]['ansible_hostname'] }}"
+  loop: "{{ groups['haproxy'] }}"

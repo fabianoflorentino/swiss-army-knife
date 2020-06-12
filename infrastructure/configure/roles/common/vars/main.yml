@@ -1,0 +1,34 @@
+---
+packages:
+  to_install:
+    - epel-release
+    - yum-utils
+    - net-tools
+    - bind-utils
+    - iptables-services
+    - htop
+    - tree
+    - vim
+    - policycoreutils-python
+    - open-vm-tools
+    - ntp
+    - nmap
+    - tcpdump
+  to_remove:
+    -
+
+services:
+  to_enable:
+    - network
+    - vmtoolsd
+    - ntpd
+
+  to_disable:
+    - NetworkManager
+    - firewalld
+
+ntp_servers:
+  - "server 0.br.pool.ntp.org"
+  - "server 1.br.pool.ntp.org"
+  - "server 2.br.pool.ntp.org"
+  - "server 3.br.pool.ntp.org"

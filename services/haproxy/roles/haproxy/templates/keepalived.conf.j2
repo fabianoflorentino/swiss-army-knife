@@ -1,0 +1,26 @@
+vrrp_script chk_haproxy {
+  script "killall -0 haproxy"  # check the haproxy process
+  interval 2 # every 2 seconds
+  weight 2 # add 2 points if OK
+}
+
+vrrp_instance VI_1 {
+  interface eth0 # interface to monitor
+{% if inventory_hostname == haproxy_master %}
+  state MASTER # MASTER on ha1, BACKUP on ha2
+{% else %}
+  state BACKUP # MASTER on ha1, BACKUP on ha2
+{% endif -%}
+  virtual_router_id 51
+{% if inventory_hostname == haproxy_master %}
+  priority 101 # 101 on ha1, 100 on ha2
+{% else %}
+  priority 100 # 101 on ha1, 100 on ha2
+{% endif -%}
+  virtual_ipaddress {
+    {{ virtual_ipaddress }} # virtual ip address
+  }
+  track_script {
+    chk_haproxy
+  }
+}

@@ -1,0 +1,23 @@
+---
+
+- name: "Install Packages"
+  yum:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+
+- name: "Create group of service"
+  group:
+    name: sre
+    state: present
+
+- name: "Create user of service"
+  user:
+    name: jenkins
+    state: present
+    generate_ssh_key: yes
+    shell: /bin/bash
+    append: yes
+    groups: ["sre"]

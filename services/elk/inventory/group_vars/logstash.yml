@@ -1,0 +1,11 @@
+---
+
+config_reload_automatic: "false"
+config_reload_interval: "3s"
+pipeline_workers: "1"
+http_host: "0.0.0.0"
+logstash_http_port: "9600"
+
+logstash_jvm:
+  jvm_xms: "512m"
+  jvm_xmx: "512m"

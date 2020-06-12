@@ -1,0 +1,39 @@
+---
+# Virtual IP for high avalibility with keepalived.
+virtual_ipaddress: ""
+
+# Hostname for first haproxy service, use the same hostname in inventory_hostname.
+# Ex:
+# haproxy_master: "haproxy-1"
+haproxy_master: ""
+
+# Select one algorithm for load balance: first, leastconn, static-rr or roundrobin.
+balance_algorithm: ""
+
+# Select one mode for HAProxy: http or tcp
+haproxy_mode: ""
+
+# Domain used in infraestructure
+my_domain: ""
+
+# If you need configure new app repeat block above new_app variable.
+# Ex:
+# new_app:
+#   app_1:
+#     name: "api_1"
+#     port_front: 8070
+#     port_back: 30870
+#     backend: {
+#       "hostname_1": "10.0.0.1",
+#       "hostname_2": "172.16.0.1",
+#       "hostname_3": "192.168.0.1"
+#     }
+#   app_2:
+#     name: "api_2"
+#     port_front: 8071
+#     port_back: 30871
+#     backend: {
+#       "hostname_1": "10.0.0.1", # Finish previous line with "," for more than one backend.
+#       "hostname_2": "172.16.0.1",
+#       "hostname_3": "192.168.0.1"
+#     }

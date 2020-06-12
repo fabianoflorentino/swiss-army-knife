@@ -1,0 +1,51 @@
+---
+- name: "Install Logstash"
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - logstash
+
+- name: "Verify if systemd is configured"
+  stat:
+    path: /etc/systemd/system/logstash.service
+  register: logstash_service
+
+- name: "Initialize Systemd Configuration for Logstash"
+  shell: |
+    bash /usr/share/logstash/bin/system-install
+  register: system-install
+  when: logstash_service.stat.exists == false
+
+- name: "Start and enabled Elasticsearch Service"
+  systemd:
+    name: logstash
+    state: started
+    enabled: yes
+
+- name: "Configure Logstash"
+  template:
+    src: logstash.yml.j2
+    dest: /etc/logstash/logstash.yml
+    owner: root
+    group: root
+    mode: 0644
+  notify: "Reload Logstash Service"
+
+- name: "Configure JVM Memory to Logstash"
+  template:
+    src: jvm.options.j2
+    dest: /etc/logstash/jvm.options
+    owner: root
+    group: root
+    mode: 0644
+  notify: "Reload Logstash Service"
+
+- name: "Configure Sample to init Logstash"
+  copy:
+    src: logstash-sample.conf
+    dest: /etc/logstash/conf.d/logstash-sample.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: "Reload Logstash Service"

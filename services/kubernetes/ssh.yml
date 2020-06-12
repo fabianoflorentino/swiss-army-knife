@@ -1,0 +1,26 @@
+---
+- name: Kubernetes Master
+  hosts:
+    - masters
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: ssh, tags: 'ssh'}
+
+- name: Kubernetes Workers
+  hosts:
+    - workers
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: ssh, tags: 'ssh'}

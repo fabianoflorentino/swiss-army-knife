@@ -1,0 +1,46 @@
+---
+
+- name: "Configure GPG KEY"
+  rpm_key:
+    state: present
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+- name: "Configure repository"
+  yum_repository:
+    name: jenkins
+    description: Jenkins is a self-contained, open source automation server
+    baseurl: http://pkg.jenkins.io/redhat
+    gpgcheck: yes
+
+- name: "Install Packages"
+  yum:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+    - jenkins
+
+- name: "Inicialize systemd services"
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - jenkins
+
+- name: "Verify if initialAdminPassword is seted."
+  stat: 
+    path: /var/lib/jenkins/secrets/initialAdminPassword
+  register: initialAdminPassword
+
+- name: "Register initialAdminPassword"
+  shell: |
+    cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: admin_password
+  when: initialAdminPassword.stat.exists == true
+
+- name: "View initialAdminPassword"
+  debug:
+    msg: "{{ admin_password.stdout }}"
+  when: initialAdminPassword.stat.exists == true

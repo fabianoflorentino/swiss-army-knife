@@ -1,0 +1,7 @@
+---
+
+server_port: "5601"
+server_host: 0.0.0.0
+server_name: "kibana"
+elasticsearch_hosts:
+  - "http://192.168.0.61:9200"

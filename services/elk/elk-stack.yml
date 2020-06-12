@@ -1,0 +1,22 @@
+---
+- name: "Build a new elasticsearch environment"
+  hosts:
+    - es_master_node
+    - es_data_node
+  roles:
+    - {role: common, tags: "common"}
+    - {role: elasticsearch, tags: "elasticsearch"}
+
+- name: "Build a new logstash environment"
+  hosts:
+    - logstash
+  roles:
+    - {role: common, tags: "common"}
+    - {role: logstash, tags: "logstash"}
+
+- name: "Build a new kibana environment"
+  hosts:
+    - kibana
+  roles:
+    - {role: common, tags: "common"}
+    - {role: kibana, tags: "kibana"}

@@ -1,0 +1,13 @@
+---
+
+- name: "Reload elasticsearch configuration"
+  file:
+    path: /var/lib/elasticsearch/nodes
+    state: absent
+  notify: "Restart elasticsearch configuration"
+
+- name: "Restart elasticsearch configuration"
+  systemd:
+    name: elasticsearch
+    state: restarted
+    enabled: yes

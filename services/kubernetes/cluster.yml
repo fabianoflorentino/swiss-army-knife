@@ -1,0 +1,61 @@
+---
+- name: Preparando os Servidores
+  hosts:
+    - all
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: common, tags: 'common'}
+
+- name: Kubernetes Master
+  hosts:
+    - masters
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: master,        tags: 'master'}
+
+- name: Kubernetes Workers
+  hosts:
+    - workers
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: worker, tags: 'worker'}
+
+- name: Extendendo o Cluster
+  hosts:
+    - masters
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  tasks:
+    - name: Label node to Worker
+      shell: >
+        kubectl label node {{ item }} node-role.kubernetes.io/worker=
+      args:
+        executable: /bin/bash
+      register: label_node
+      with_inventory_hostnames: workers
+  roles:
+    - {role: metric_server, tags: 'metric_server'}
+    - {role: helm, tags: 'helm'}

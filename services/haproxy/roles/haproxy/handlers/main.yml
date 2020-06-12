@@ -1,0 +1,11 @@
+---
+
+- name: "Apply new configuration for HAProxy"
+  systemd:
+    name: haproxy
+    state: restarted
+
+- name: "Apply new configuration for Keepalived"
+  systemd:
+    name: keepalived
+    state: restarted

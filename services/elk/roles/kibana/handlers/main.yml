@@ -1,0 +1,6 @@
+---
+- name: "Reload Kibana configuration"
+  systemd:
+    name: kibana
+    state: restarted
+    enabled: yes

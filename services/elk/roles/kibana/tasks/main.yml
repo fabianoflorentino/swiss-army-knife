@@ -1,0 +1,23 @@
+---
+- name: "Install Kibana"
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - kibana
+
+- name: "Start and enabled Kibana Service"
+  systemd:
+    name: kibana
+    state: started
+    enabled: yes
+
+- name: "Confifure Kibana"
+  template:
+    src: kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+    owner: kibana
+    group: root
+    mode: 0660
+  when: ( cluster_mode == "true" )
+  notify: "Reload Kibana configuration"

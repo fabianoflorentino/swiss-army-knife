@@ -1,0 +1,44 @@
+---
+- name: "Install Elasticsearch"
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - elasticsearch
+
+- name: "Start and enabled Elasticsearch Service"
+  systemd:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+- name: "Path for snapshot and restore"
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: elasticsearch
+    group: elasticsearch
+    mode: 0744
+  with_items:
+    - "/backup"
+    - "/backup/elasticsearch"
+    - "/backup/elasticsearch/lab"
+
+- name: "Confifure Cluster for elasticsearch"
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  when: ( cluster_mode == "true" )
+  notify: "Reload elasticsearch configuration"
+
+- name: "Configure JVM Memory to Elasticsearch"
+  template:
+    src: jvm.options.j2
+    dest: /etc/elasticsearch/jvm.options
+    owner: root
+    group: root
+    mode: 0644
+  notify: "Restart elasticsearch configuration"
