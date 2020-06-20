@@ -8,3 +8,5 @@
         Configure the an virtual machines with roles of ansible tool
 
 ## **Services**
+
+The services to configure on your new vmware infrastructure
