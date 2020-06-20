@@ -2,9 +2,9 @@
 
 ## **Infrastructure**
 
-- [x] **Deploy**
+- [x] **Deploy**  
     Creates the infrastructure on vmware environment with terraform
-- [x] **Configure**
+- [x] **Configure**  
     Configure the an virtual machines with roles of ansible tool
 
 ## **Services**
