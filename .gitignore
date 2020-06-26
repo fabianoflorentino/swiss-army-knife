@@ -4,3 +4,4 @@ infrastructure/terraform/*.tfstate*
 haproxy/inventorie/lab
 infrastructure/terraform/modules/lab
 infrastructure/ansible/inventories/lab.yml
+infrastructure/configure/inventories/kubernetes.yml
