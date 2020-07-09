@@ -1,9 +1,16 @@
 ---
+- name: Clean YUM
+  shell: |
+    yum clean all
+    rm -rf /var/cache/yum/*
+  args:
+    warn: false
+  register: yum_clean
 
 - name: "Configure GPG KEY"
   rpm_key:
     state: present
-    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    key: https://pkg.jenkins.io/redhat/jenkins.io.key
 
 - name: "Configure repository"
   yum_repository:
@@ -15,7 +22,8 @@
 - name: "Install Packages"
   yum:
     name: "{{ item }}"
-    state: installed
+    state: present
+    update_cache: yes
   loop:
     - java-1.8.0-openjdk
     - java-1.8.0-openjdk-devel

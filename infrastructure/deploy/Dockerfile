@@ -1,6 +1,6 @@
 FROM hashicorp/terraform:light
 
-RUN apk add python py-pip make vim bash \
+RUN apk add python3 py3-pip make vim bash \
   && mkdir -p /infrastructure \
   && adduser --disabled-password --gecos "" terraform
 

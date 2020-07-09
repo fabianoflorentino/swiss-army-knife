@@ -5,12 +5,12 @@
     - master
   gather_facts: False
   pre_tasks:
-    - setup:
+  - setup:
       gather_subset:
-        - '!all'
-        - '!any'
-        - 'network'
-        - 'virtual'
+      - '!all'
+      - '!any'
+      - 'network'
+      - 'virtual'
   roles:
     - {role: master, tags: "master"}
 
@@ -19,7 +19,7 @@
     - slave
   gather_facts: False
   pre_tasks:
-    - setup:
+  - setup:
       gather_subset:
         - '!all'
         - '!any'
