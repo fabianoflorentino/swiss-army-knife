@@ -2,6 +2,11 @@
 infrastructure/configure/inventories/*
 !infrastructure/configure/inventories/sample
 
+# Infrastructure/Deploy
+infrastructure/deploy/*.terraform*
+infrastructure/deploy/modules/*
+!infrastructure/deploy/modules/sample
+
 # Service/HAProxy
 services/haproxy/inventories/*
 !services/haproxy/inventories/sample
