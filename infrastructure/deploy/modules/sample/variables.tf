@@ -30,7 +30,7 @@ variable "guest_id" {
 
 variable "custom_iso_path" {
 
-  default = "iso/centos7-custom-img-disk65gb-latest.iso"
+  default = "iso/centos7-custom-img-disk70gb.iso"
 
 }
 
