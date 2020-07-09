@@ -1,6 +1,6 @@
 # Instrastructure/Configure
 infrastructure/configure/inventories/*
-!infrastructure/configure/inventories/sample.yml
+!infrastructure/configure/inventories/sample
 
 # Service/HAProxy
 services/haproxy/inventories/*
