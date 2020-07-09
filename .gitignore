@@ -5,3 +5,7 @@ infrastructure/configure/inventories/*
 # Service/HAProxy
 services/haproxy/inventories/*
 !services/haproxy/inventories/sample
+
+# Services/Jenkins
+services/jenkins/inventories/*
+!services/jenkins/inventories/sample

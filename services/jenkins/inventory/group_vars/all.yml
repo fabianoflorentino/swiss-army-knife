@@ -1,5 +1,0 @@
----
-
-ssh_key: 
-  # SSH Information: ~${USER}/.ssh/id_rsa.pub
-  - ""
