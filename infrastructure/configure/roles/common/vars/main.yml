@@ -6,7 +6,6 @@ packages:
     - net-tools
     - bind-utils
     - iptables-services
-    - htop
     - tree
     - vim
     - policycoreutils-python

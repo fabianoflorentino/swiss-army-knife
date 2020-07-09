@@ -1,7 +1,7 @@
-infrastructure/terraform/.terraform
-infrastructure/terraform/*.tfplan
-infrastructure/terraform/*.tfstate*
-haproxy/inventorie/lab
-infrastructure/terraform/modules/lab
-infrastructure/ansible/inventories/lab.yml
-infrastructure/configure/inventories/kubernetes.yml
+# Instrastructure/Configure
+infrastructure/configure/inventories/*
+!infrastructure/configure/inventories/sample.yml
+
+# Service/HAProxy
+services/haproxy/inventories/*
+!services/haproxy/inventories/sample

@@ -38,3 +38,9 @@
 - name: Atualizando o Hostname dos Servidores
   hostname:
     name: "{{ inventory_hostname }}"
+
+- name: Atualizando /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ hostvars[item]['ansible_host'] }} {{ hostvars[item]['inventory_hostname'] }}"
+  loop: "{{ groups['all'] }}"

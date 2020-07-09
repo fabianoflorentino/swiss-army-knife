@@ -25,6 +25,7 @@ defaults
 ### Stats
 listen  stats :9000
         stats enable
+        stats hide-version
         stats realm Haproxy\ Statistics
         stats uri /haproxy_stats
         stats auth admin:password
@@ -43,11 +44,11 @@ acl {{ acl }} hdr(host) -i {{ acl }}.{{ my_domain }}
 {% endfor %}
 
 {% for acl, app in new_app.items() %}
-use_backend app-{{ app.name }} if {{ acl }}
+use_backend {{ app.name }} if {{ acl }}
 {% endfor %}
 
 {% for acl, app in new_app.items() %}
-backend app-{{ app.name }}
+backend {{ app.name }}
   balance {{ balance_algorithm }}
   mode    http
   option httpchk HEAD /
@@ -61,13 +62,13 @@ backend app-{{ app.name }}
 {% if haproxy_mode == "tcp" %}
 {% for acl, app in new_app.items() %}
 #
-### app-{{ app.name }}
-frontend app-{{ app.name }}
+### {{ app.name }}
+frontend {{ app.name }}
   log /dev/log local0 debug
   bind *:{{ app.port_front }}
-  default_backend app-{{ app.name }}
+  default_backend {{ app.name }}
 
-backend app-{{ app.name }}
+backend {{ app.name }}
   balance {{ balance_algorithm }}
   mode    tcp
 {% for host_name, ip_addr in app.backend.items() %}
