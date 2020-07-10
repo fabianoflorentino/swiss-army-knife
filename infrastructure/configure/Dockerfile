@@ -7,6 +7,8 @@ RUN apk add vim make sshpass openssh gcc g++ libffi-dev openssl openssl-dev \
   && adduser --disabled-password --gecos "" ansible \
   && pip install -r requirements.txt
 
+VOLUME [ "/ansible" ]
+
 USER ansible
 
 WORKDIR /ansible
