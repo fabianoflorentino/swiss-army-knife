@@ -1,16 +1,15 @@
 # Instrastructure/Configure
 infrastructure/configure/inventories/*
 !infrastructure/configure/inventories/sample
-!infrastructure/configure/inventories/jenkins
 
 # Infrastructure/Deploy
 infrastructure/deploy/*.terraform*
 infrastructure/deploy/modules/*
-!infrastructure/deploy/modules/sample
 infrastructure/deploy/*
+!infrastructure/deploy/modules/sample
 !infrastructure/deploy/sample
 !infrastructure/deploy/Dockerfile
-
+!infrastructure/deploy/create.sh
 
 # Service/HAProxy
 services/haproxy/inventories/*
