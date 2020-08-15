@@ -89,7 +89,7 @@
 
 The services to configure on your new vmware infrastructure
 
-- [x] **HAProxy**
-- [x] **Kubernetes**
-- [x] **Elastic Stack**
-- [x] **Jenkins**
+- [x] [**HAProxy**](./docs/haproxy.md)
+- [x] [**Kubernetes**](./docs/kubernetes.md)
+- [x] [**Elastic Stack**](./docs/elastic_stack.md)
+- [x] [**Jenkins**](./docs/jenkins.md)
