@@ -10,7 +10,7 @@
     To creates the infrastructure you can use:
 
     ```shell
-    cd ./deploy
+    cd ./infrastructure/deploy
     cp -rf ./sample <YOUR MODULE>
     cp -rf ./modules/sample ./modules/<YOUR MODULE>
 
@@ -52,7 +52,7 @@
     Configuration management of servers.
 
     ```shell
-    cd ./configure
+    cd ./infrastructure/configure
     cp -rf ./inventories/sample ./invetories/<YOU INVENTORY>
     ```
 

@@ -18,3 +18,7 @@ services/haproxy/inventories/*
 # Services/Jenkins
 services/jenkins/inventories/*
 !services/jenkins/inventories/sample
+
+#ELK
+services/elk/inventories/*
+!services/elk/inventories/sample

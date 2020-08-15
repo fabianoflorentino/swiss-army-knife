@@ -6,12 +6,6 @@
   loop:
     - kibana
 
-- name: "Start and enabled Kibana Service"
-  systemd:
-    name: kibana
-    state: started
-    enabled: yes
-
 - name: "Confifure Kibana"
   template:
     src: kibana.yml.j2
@@ -21,3 +15,10 @@
     mode: 0660
   when: ( cluster_mode == "true" )
   notify: "Reload Kibana configuration"
+
+- name: "Start and enabled Kibana Service"
+  systemd:
+    name: kibana
+    state: started
+    enabled: yes
+
